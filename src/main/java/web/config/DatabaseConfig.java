@@ -10,6 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -32,9 +33,10 @@ public class DatabaseConfig {
 
     @Bean
     @Autowired
-    public HibernateTransactionManager transactionManager(final SessionFactory sessionFactory) {
-        final HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory);
+    public JpaTransactionManager transactionManager(final SessionFactory sessionFactory) {
+        final JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(sessionFactory);
+        transactionManager.setDataSource(dataSource());
 
         return transactionManager;
     }

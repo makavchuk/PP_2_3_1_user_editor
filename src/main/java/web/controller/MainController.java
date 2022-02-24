@@ -11,8 +11,11 @@ import web.service.UserService;
 
 public class MainController {
 
-	@Autowired
-	UserService userService;
+	private UserService userService;
+
+	public MainController(@Autowired UserService userService) {
+		this.userService = userService;
+	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView mainPage() {

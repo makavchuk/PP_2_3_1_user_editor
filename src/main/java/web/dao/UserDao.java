@@ -7,7 +7,6 @@ import web.model.User;
 import java.util.List;
 
 @Repository
-@Transactional
 public interface UserDao {
     public void addUser(User user);
     public void updateUser(User user);
